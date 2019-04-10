@@ -27,10 +27,10 @@
 
 #pragma mark - Swizzle Dealloc
 
-+ (void)load {
+__attribute__((constructor)) static void initialize_UITextView(void) {
     // is this the best solution?
-    method_exchangeImplementations(class_getInstanceMethod(self.class, NSSelectorFromString(@"dealloc")),
-                                   class_getInstanceMethod(self.class, @selector(swizzledDealloc)));
+    method_exchangeImplementations(class_getInstanceMethod(UITextView.class, NSSelectorFromString(@"dealloc")),
+                                   class_getInstanceMethod(UITextView.class, @selector(swizzledDealloc)));
 }
 
 - (void)swizzledDealloc {
